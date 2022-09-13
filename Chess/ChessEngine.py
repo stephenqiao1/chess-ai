@@ -84,31 +84,80 @@ class ChessState():
     Get all the rook moves for the rook located at row col, and add to the list
     """
     def get_rook_moves(self, row, col, moves):
-        pass
+        directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
+        enemy_color = "b" if self.whiteTurn else "w"
+        for d in directions:
+            for i in range(1, 8):
+                end_row = row + d[0] * i
+                end_col = col + d[1] * i
+                if 0 <= end_row < 8 and 0 <= end_col < 8:
+                    end_piece = self.board[end_row][end_col]
+                    if end_piece == '/':  # empty space
+                        moves.append(Move((row, col), (end_row, end_col), self.board))
+                    elif end_piece[0] == enemy_color:  # enemy piece
+                        moves.append(Move((row, col), (end_row, end_col), self.board))
+                        break
+                    else:  # friendly piece
+                        break
+                else:
+                    break
 
     """
     Get all the knight moves for the rook located at row col, and add to the list
     """
     def get_knight_moves(self, row, col, moves):
-        pass
+        directions = ((-2, -1), (-2, 1), (-1, -2), (-1, 2), (1, -2), (1, 2), (2, -1), (2, 1))
+        ally_color = "w" if self.whiteTurn else "b"
+        for m in directions:
+            end_row = row + m[0]
+            end_col = col + m[1]
+            if 0 <= end_row < 8 and 0 <= end_col < 8:
+                end_piece = self.board[end_row][end_col]
+                if end_piece[0] != ally_color:
+                    moves.append(Move((row, col), (end_row, end_col), self.board))
 
     """
     Get all the bishop moves for the rook located at row col, and add to the list
     """
     def get_bishop_moves(self, row, col, moves):
-        pass
+        directions = ((-1, 1), (1, 1), (1, -1), (-1, -1))
+        enemy_color = "b" if self.whiteTurn else "w"
+        for d in directions:
+            for i in range(1, 8):
+                end_row = row + d[0] * i
+                end_col = col + d[1] * i
+                if 0 <= end_row < 8 and 0 <= end_col < 8:
+                    end_piece = self.board[end_row][end_col]
+                    if end_piece == '/':
+                        moves.append(Move((row, col), (end_row, end_col), self.board))
+                    elif end_piece[0] == enemy_color:
+                        moves.append(Move((row, col), (end_row, end_col), self.board))
+                        break
+                    else:
+                        break
+                else:
+                    break
 
     """
     Get all the queen moves for the rook located at row col, and add to the list
     """
     def get_queen_moves(self, row, col, moves):
-        pass
+        self.get_rook_moves(row, col, moves)
+        self.get_bishop_moves(row, col, moves)
 
     """
     Get all the king moves for the rook located at row col, and add to the list
     """
     def get_king_moves(self, row, col, moves):
-        pass
+        directions = ((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1))
+        ally_color = "w" if self.whiteTurn else "b"
+        for i in range(8):
+            end_row = row + directions[i][0]
+            end_col = col + directions[i][1]
+            if 0 <= end_row < 8 and 0 <= end_col < 8:
+                end_piece = self.board[end_row][end_col]
+                if end_piece[0] != ally_color:
+                    moves.append(Move((row, col), (end_row, end_col), self.board))
 
 class Move():
     ranksToRows = {"1" : 7, "2" : 6, "3" : 5, "4" : 4, "5" : 3, "6" : 2, "7" : 1, "8" : 0}
