@@ -18,9 +18,9 @@ def main():
     clock = p.time.Clock()
     gs = ChessEngine.ChessState()
     validMoves = gs.get_valid_moves()
-    moveMade = False # set to true when a move is made
+    moveMade = False  # set to true when a move is made
     sqrSelected = ()  # keep track of the last click of the user (tuple: (rank, file))
-    playerClicks = [] # keep track of player clicks (two tuples: [(6, 4), (4, 4)])
+    playerClicks = []  # keep track of player clicks (two tuples: [(6, 4), (4, 4)])
     pieces = ['wP', 'wR', 'wN', 'wK', 'wB', 'wQ', 'bP', 'bR', 'bN', 'bK', 'bB', 'bQ']
     for piece in pieces:
         IMAGES[piece] = p.transform.scale(p.image.load("images/" + piece + ".png"), (SQ_SIZE, SQ_SIZE))
@@ -57,9 +57,9 @@ def main():
             validMoves = gs.get_valid_moves()
             moveMade = False
 
-            draw_board(screen, gs.board)
-            clock.tick(MAX_FPS)
-            p.display.flip()  # updates the display
+        draw_board(screen, gs.board)
+        clock.tick(MAX_FPS)
+        p.display.flip()  # updates the display
 
 def draw_board(screen, board):
     colors = [p.Color("antiquewhite"), p.Color("bisque4")]  # antiquewhite will act as the white square, and bisque4
