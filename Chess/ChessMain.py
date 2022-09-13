@@ -17,6 +17,8 @@ def main():
     screen = p.display.set_mode((WIDTH, HEIGHT))
     clock = p.time.Clock()
     gs = ChessEngine.ChessState()
+    validMoves = gs.get_valid_moves()
+    moveMade = False # set to true when a move is made
     sqrSelected = ()  # keep track of the last click of the user (tuple: (rank, file))
     playerClicks = [] # keep track of player clicks (two tuples: [(6, 4), (4, 4)])
     pieces = ['wP', 'wR', 'wN', 'wK', 'wB', 'wQ', 'bP', 'bR', 'bN', 'bK', 'bB', 'bQ']
@@ -40,9 +42,20 @@ def main():
                 if len(playerClicks) == 2:
                     move = ChessEngine.Move(playerClicks[0], playerClicks[1], gs.board)
                     print(move.get_chess_notation())
-                    gs.makeMove(move)
+                    if move in validMoves:
+                        gs.make_move(move)
+                        moveMade = True
+                    gs.make_move(move)
                     sqrSelected = ()
                     playerClicks = []
+            elif e.type == p.KEYDOWN:
+                if e.key == p.K_z:
+                    gs.undo_move()
+                    moveMade = True
+
+        if moveMade:
+            validMoves = gs.get_valid_moves()
+            moveMade = False
 
             draw_board(screen, gs.board)
             clock.tick(MAX_FPS)
