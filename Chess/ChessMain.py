@@ -3,7 +3,7 @@ Displays the board
 """
 
 import pygame as p
-from Chess import ChessEngine, SmartMoveFinder
+from Chess import ChessEngine, AIMoves
 
 WIDTH = HEIGHT = 512
 DIMENSION = 8
@@ -61,7 +61,7 @@ def main():
 
             # AI Move
             if not humanTurn:
-                ai_move = SmartMoveFinder.find_random_move(validMoves)
+                ai_move = AIMoves.find_random_move(validMoves)
                 gs.make_move(ai_move)
                 moveMade = True
 
