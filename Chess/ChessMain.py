@@ -48,7 +48,7 @@ def main():
                             moveMade = True
                             sqrSelected = ()
                             playerClicks = []
-                    else:
+                    if not moveMade:
                         playerClicks= [sqrSelected]
             elif e.type == p.KEYDOWN:
                 if e.key == p.K_z:
