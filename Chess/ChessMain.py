@@ -61,7 +61,9 @@ def main():
 
             # AI Move
             if not humanTurn:
-                ai_move = AIMoves.find_random_move(validMoves)
+                ai_move = AIMoves.find_best_move_minmax(gs, validMoves)
+                if ai_move is None:
+                    ai_move = AIMoves.find_random_move(validMoves)
                 gs.make_move(ai_move)
                 moveMade = True
 

@@ -100,6 +100,8 @@ class ChessState():
                     self.board[move.endRow][move.endCol-2] = self.board[move.endRow][move.endCol+1]
                     self.board[move.endRow][move.endCol+1] = '/'
 
+            self.checkMate = False
+            self.staleMate = False
 
     def update_castle_rights(self, move):  # update the castle rights given a move
         if move.pieceMoved == 'wK':
